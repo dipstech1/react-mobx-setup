@@ -24,7 +24,7 @@ class App extends React.Component {
                         <PrivateRoute component={Dashboard} path="/dashboard"></PrivateRoute>
                         <PrivateRoute component={UserDetails} path="/details/:id"></PrivateRoute>
 
-                        <Route component={LoginContainer} path="/"></Route>
+                        <PublicRoute component={LoginContainer} path="/"></PublicRoute>
 
                     </Switch>
                 </BrowserRouter>
