@@ -7,6 +7,7 @@ import Login from "../Login";
 @inject("authStore")
 @observer
 class LoginContainer extends Component {
+
   setEmail = e => {
     console.log(e.target.value);
     this.props.authStore.setEmail(e.target.value);

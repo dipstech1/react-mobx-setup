@@ -13,9 +13,13 @@ const EditDeleteButton = inject('dashboardStore')(observer((props) => {
         props.dashboardStore.removeUser(props.data.id);
     }
 
+    let onEdit = (e) => {
+        
+    }
+
     return (
         <React.Fragment>
-             <span style={{ float: "right" }} onClick = {onDelete}>
+             <span style={{ float: "right"}} onClick = {onDelete}>
             <i className="fa fa-fw fa-trash"></i>
         </span>
         <span style={{ float: "right", paddingRight: "10px" }}>

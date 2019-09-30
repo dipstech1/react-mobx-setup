@@ -31,6 +31,11 @@ class AuthStore{
 
     }
 
+    @action logout(){
+        commonStore.removeToken();
+        window.location.href = "/"
+    }
+
 }
 
 export default new AuthStore()

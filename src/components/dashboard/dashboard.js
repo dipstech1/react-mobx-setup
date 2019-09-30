@@ -37,17 +37,15 @@ const Dashboard = inject('dashboardStore','authStore')(observer((props) => {
         
     },[]);
 
-    useEffect(() => {
-       
-    })
+    const redirectToDetails = id =>{
+        props.history.push(`/details/${id}`)
+    }
 
     let displayData = () => (
         props.dashboardStore.userData.length > 0 ? props.dashboardStore.userData.map((data, i) => (
-                <ListGroup.Item key={data.id}>
-                {data.email}
+                <ListGroup.Item key={data.id} >
+                 <span onClick={() => redirectToDetails(data.id)}>{data.email}</span>
                 <EditDelete data = {data}/>
-                
-                
                 </ListGroup.Item>
             
         ))

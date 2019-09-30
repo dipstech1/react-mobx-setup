@@ -20,6 +20,10 @@ class CommonStore {
     @action setToken(token){
         this.token = token
     }
+
+    @action removeToken(token){
+        this.token = ""
+    }
 }
 
 export default new CommonStore()
