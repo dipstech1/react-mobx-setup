@@ -10,13 +10,14 @@ const encode = encodeURIComponent;
 
 request.use((req) => {
     console.log("tojken ", commonStore.token)
-    req.header.authorization = `Token ${commonStore.token}`;
+    if(commonStore.token)
+      req.header.authorization = `Token ${commonStore.token}`;
     return req;
 });
 
 
 const handleErrors = err => {
-    console.log("err ", err.response)
+    console.log("err ", err.response.body.error)
   if (err && err.response && err.response.status === 401) {
     // authStore.logout();
   }

@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect, useReducer } from "react";
 
 let initialState = {
-    
+
 }
 
 let AboutUser = ({ user, props }) => {
@@ -22,7 +22,7 @@ let AboutUser = ({ user, props }) => {
   };
 
   let toggleShowForm = e => {
-    console.log(showForm);
+    console.log("AAAAA", e);
     setShowForm(!showForm);
     if(showForm){
         props.dashboardStore.updateUser(updateUser)
@@ -38,7 +38,6 @@ let AboutUser = ({ user, props }) => {
             {!showForm ? (
               <div className="test">
                 <span key={i} style={spanStyle}>
-                  {" "}
                   {data.toUpperCase()} :
                 </span>
                 <span key={i}>{user[data]} </span>
@@ -60,9 +59,7 @@ let AboutUser = ({ user, props }) => {
         ))}
       <div>
         <button
-          onClick={e => {
-            toggleShowForm(e);
-          }}
+          onClick={toggleShowForm}
         >
           {showForm ? "UPDATE" : "EDIT"}
         </button>
@@ -77,4 +74,4 @@ let spanStyle = {
 
 let displayUser = {};
 
-export default AboutUser;
+export default React.memo(AboutUser);

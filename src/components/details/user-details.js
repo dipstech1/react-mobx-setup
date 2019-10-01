@@ -18,7 +18,7 @@ const UserDetails = inject("dashboardStore")(
 
            user ?
             returnDiv = 
-                <div>
+                <div className="container">
                     {
                         <AboutUser  user = {user} props = {props} />
                     }
