@@ -22,7 +22,6 @@ let AboutUser = ({ user, props }) => {
   };
 
   let toggleShowForm = e => {
-    console.log("AAAAA", e);
     setShowForm(!showForm);
     if(showForm){
         props.dashboardStore.updateUser(updateUser)

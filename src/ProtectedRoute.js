@@ -2,6 +2,7 @@ import React from 'react'
 import {Route, Redirect} from 'react-router-dom'
 import commonStore from './store/commonStore'
 import Header from './components/layouts/Header'
+import ErrorBoundary from './ErrorBoundary';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     return (
@@ -12,7 +13,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             localStorage.getItem('token') ?
                 <div>
                     <Header/>
-                    <Component {...props} />
+                    <ErrorBoundary> <Component {...props} /> </ErrorBoundary>
                 </div>
                 
             : <Redirect to="/" />

@@ -21,7 +21,7 @@ const store = {
     dashboardStore
 }
 
-let rou = <Provider {...store}><App></App></Provider>
+let rou = <Provider {...store}> <App/></Provider>
 
 ReactDOM.render(rou, document.getElementById('root'));
 

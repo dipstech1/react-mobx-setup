@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Button } from "react-bootstrap";
+import 'antd/dist/antd.css';
+
+import validator from 'validator';
+import { Button } from 'antd';
+
 
 import Login from "../Login";
 
@@ -8,8 +12,23 @@ import Login from "../Login";
 @observer
 class LoginContainer extends Component {
 
+  constructor(props){
+    super(props)
+
+    this.state = {
+      errors : {
+        email : [],
+        password : []
+      },
+      isSubmit : false,
+      loading : false
+    }
+
+    // throw new Error("hik")
+
+  }
+
   setEmail = e => {
-    console.log(e.target.value);
     this.props.authStore.setEmail(e.target.value);
   };
 
@@ -18,12 +37,68 @@ class LoginContainer extends Component {
     this.props.authStore.setPassword(e.target.value);
   };
 
+  validateLogin({email, password}){
+    let flag = true;
+    if(validator.isEmpty(email)){
+      let emailValid = ["Please privide email"]
+      this.setState({
+         "email" : this.state.errors["email"] = (emailValid)
+      })
+      flag = false;
+    }
+
+    else if(!validator.isEmail(email)){
+      let emailValid = ["Please enter a valid email"]
+      this.setState({
+        "email" : this.state.errors["email"] = (emailValid)
+      })
+
+      flag = false
+  }
+
+  else if(validator.isEmpty(password)){
+    let passValid = ["Please provide password"]
+    this.setState({
+       "password" : this.state.errors["password"] = (passValid)
+    })
+    flag = false;
+  }
+
+  else{
+    Object.keys(this.state.errors).map(key => {
+      this.setState({
+        [this.state.errors[key]] : []
+      })
+    });
+    flag = true;
+  }
+
+    return flag
+  }
+
   login = e => {
     e.preventDefault();
-    console.log(this.props.authStore.getJsonLoginData);
-    this.props.authStore.login().then(res => {
-      this.props.history.push("/dashboard");
-    });
+    this.setState({
+      isSubmit : true,
+      loading : true
+    })
+
+    let valid = this.validateLogin(this.props.authStore.loginData)
+
+    // let {email, password} = this.props.authStore.loginData
+    if(valid){
+      this.setState({
+        loading : false
+      })
+      this.props.authStore.login().then(res => {
+        this.props.history.push("/dashboard");
+      });
+    }else{
+      this.setState({
+        loading : false
+      })
+    }
+   
   };
 
   render() {
@@ -57,10 +132,25 @@ class LoginContainer extends Component {
             <label>Email</label>
             <input
               type="email"
+              name = "email"
               onChange={e => this.setEmail(e)}
               className="form-control input-normal"
               placeholder="email"
             />
+            <div>
+              {
+                this.state.isSubmit ? 
+                    <span>
+                      {
+                         this.state.errors.email.map((err) => (
+                           <li>{err}</li>
+                         ))
+                      }
+                    </span>
+                    :
+                    ""
+              }
+            </div>
           </div>
           <div className="form-group col-md-4 col-sm-4">
             <label>password</label>
@@ -70,6 +160,20 @@ class LoginContainer extends Component {
               className="form-control input-normal"
               placeholder="password"
             />
+            <div>
+              {
+                this.state.isSubmit ? 
+                    <span>
+                      {
+                         this.state.errors.password.map((err) => (
+                           <li>{err}</li>
+                         ))
+                      }
+                    </span>
+                    :
+                    ""
+              }
+            </div>
           </div>
           {/* <div className="checkbox">
             <label>
@@ -77,13 +181,14 @@ class LoginContainer extends Component {
               {options.checkbox.text}
             </label>
           </div> */}
-          <button
+          <Button type="primary"
             type="submit"
             onClick={e => this.login(e)}
             className="btn btn-danger"
+            shape="round" loading= {false} 
           >
             Login
-          </button>
+          </Button>
         </form>
       </div>
     );

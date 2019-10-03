@@ -5,6 +5,11 @@ import AboutUser from './about-user'
 const UserDetails = inject("dashboardStore")(
   observer(props => {
 
+    useEffect(()=> {
+      throw new Error("hik")
+
+    },[])
+
     useEffect(() => {
         dispalyUser(props)
     })
