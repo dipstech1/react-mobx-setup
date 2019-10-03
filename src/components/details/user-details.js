@@ -5,10 +5,10 @@ import AboutUser from './about-user'
 const UserDetails = inject("dashboardStore")(
   observer(props => {
 
-    useEffect(()=> {
-      throw new Error("hik")
+    // useEffect(()=> {
+    //   throw new Error("hik")
 
-    },[])
+    // },[])  Test for error boundary
 
     useEffect(() => {
         dispalyUser(props)
